@@ -127,4 +127,4 @@ cython_debug/
 .vscode/settings.json
 
 #SQLite
-app/data/trivia.db
+data/trivia.db
