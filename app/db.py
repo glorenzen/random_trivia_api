@@ -16,11 +16,7 @@ class Base(DeclarativeBase):
     pass
 
 
-from app.models import (
-    question,
-    category,
-    difficulty,
-)
+from app.models import question, category, difficulty, user
 
 
 Base.metadata.create_all(engine)
