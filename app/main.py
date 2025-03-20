@@ -7,11 +7,12 @@ import app.db
 
 app = FastAPI()
 
-from app.routers import category, question
+from app.routers import category, question, user
 import uvicorn
 
 app.include_router(category.router)
 app.include_router(question.router)
+app.include_router(user.router)
 
 
 @app.get("/")
