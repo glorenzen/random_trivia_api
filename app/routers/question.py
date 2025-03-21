@@ -2,7 +2,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from app.db import get_db
-from app.crud.question import create, get_all, get_random, get_one_by_id, delete
+from app.data.question import create, get_all, get_random, get_one_by_id, delete
 from app.schemas.question import QuestionCreate, Question as QuestionSchema
 
 router = APIRouter(prefix="/questions")
