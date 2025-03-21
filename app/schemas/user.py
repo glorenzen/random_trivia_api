@@ -17,6 +17,10 @@ class UserCreateResponse(BaseModel):
     user: UserBase
 
 
+class UserLogin(UserCreate):
+    pass
+
+
 class UserUpdate(UserBase):
     pass
 
