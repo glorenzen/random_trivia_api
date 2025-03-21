@@ -1,5 +1,5 @@
 from app.models.user import User
-from app.schemas.user import UserCreate, User as UserSchema
+from app.schemas.user import UserCreate, UserLogin
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound, MultipleResultsFound
 from app.auth import get_password_hash, verify_password
@@ -32,3 +32,13 @@ def get_by_email(db: Session, email: str):
         print(e)
     except NoResultFound as e:
         print(e)
+
+
+def authenticate_user(db: Session, email: str, password: str):
+    user = get_by_email(db, email)
+
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
