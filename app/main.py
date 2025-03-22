@@ -5,7 +5,19 @@ load_dotenv()
 from fastapi import FastAPI
 import app.db
 
-app = FastAPI()
+tags_metadata = [
+    {
+        "name": "questions",
+        "description": "Operations for Questions like getting, creating etc.",
+    },
+    {"name": "categories", "description": "Operations for question Categories."},
+    {
+        "name": "users",
+        "description": "Operations with users. The **login** logic is also here.",
+    },
+]
+
+app = FastAPI(openapi_tags=tags_metadata)
 
 from app.routers import category, question, user
 import uvicorn

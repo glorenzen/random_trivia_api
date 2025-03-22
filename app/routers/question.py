@@ -8,12 +8,12 @@ from app.schemas.question import QuestionCreate, Question as QuestionSchema
 router = APIRouter(prefix="/questions")
 
 
-@router.get("/", response_model=List[QuestionSchema])
+@router.get("/", response_model=List[QuestionSchema], tags=["questions"])
 def get_questions(db: Session = Depends(get_db)) -> List[QuestionSchema]:
     return get_all(db)
 
 
-@router.get("/random", response_model=List[QuestionSchema])
+@router.get("/random", response_model=List[QuestionSchema], tags=["questions"])
 def get_random_questions(
     category: Optional[List[str]] = Query(None),
     difficulty: Optional[List[str]] = Query(None),
@@ -32,16 +32,16 @@ def get_random_questions(
 #     return get_one(db, category_name=name)
 
 
-@router.get("/{id}", response_model=QuestionSchema)
+@router.get("/{id}", response_model=QuestionSchema, tags=["questions"])
 def get_question_by_id(id: int, db: Session = Depends(get_db)):
     return get_one_by_id(db, id)
 
 
-@router.post("/", response_model=QuestionSchema)
+@router.post("/", response_model=QuestionSchema, tags=["questions"])
 def create_question(question: QuestionCreate, db: Session = Depends(get_db)):
     return create(db, question)
 
 
-@router.delete("/{id}")
+@router.delete("/{id}", tags=["questions"])
 def delete_question(id: int, db: Session = Depends(get_db)) -> dict:
     return delete(db, question_id=id)

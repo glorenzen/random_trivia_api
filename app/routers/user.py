@@ -24,19 +24,19 @@ router = APIRouter(prefix="/user")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
 
 
-@router.post("/", response_model=UserCreateResponse)
+@router.post("/", response_model=UserCreateResponse, tags=["users"])
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     new_user = create(db, user)
     return {"message": "Created new user", "user": new_user}
 
 
-@router.get("/email", response_model=UserSchema)
+@router.get("/email", response_model=UserSchema, tags=["users"])
 def get_user_by_email(email: str, db: Session = Depends(get_db)):
     user = get_by_email(db, email)
     return UserSchema.model_validate(user, from_attributes=True)
 
 
-@router.post("/login")
+@router.post("/login", tags=["users"])
 def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Session = Depends(get_db),
@@ -86,7 +86,7 @@ async def get_current_active_user(
     return current_user
 
 
-@router.get("/me/", response_model=UserSchema)
+@router.get("/me/", response_model=UserSchema, tags=["users"])
 async def read_users_me(
     current_user: Annotated[UserSchema, Depends(get_current_active_user)],
 ):
